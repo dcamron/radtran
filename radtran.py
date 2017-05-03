@@ -118,7 +118,7 @@ hgt_c = hgt_ci.astype(float)      # cleaned height data
 hgt_c[invalid] = np.nan
 
 
-# In[10]:
+# In[16]:
 
 refc_name = 'Radar Reflectivity Factor'
 refc_units = 'dBZe'
@@ -130,7 +130,7 @@ _FillValue = -8192
 invalid = np.logical_or(ref_ci < vra[0], ref_ci > vra[1], ref_ci == _FillValue)
 ref_c_pre = ref_ci.astype(float)
 ref_c_pre[invalid] = np.nan
-ref_c = refc_scale * ref_c_pre    # cleaned and scaled cloudsat reflectivity data
+ref_c = ref_c_pre / refc_scale    # cleaned and scaled cloudsat reflectivity data
 
 
 # Finally, we'll close all of our open files and datasets.
@@ -144,7 +144,7 @@ hc.close()
 
 # First, we want to pull out every cloud-top height data point with a lat, lon pair corresponding to our cloudsat data.
 
-# In[158]:
+# In[17]:
 
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
@@ -158,31 +158,35 @@ ax.set_xticks(np.arange(163,192,4))
 ax.set_yticks(np.arange(-4,21,4))
 ax.set_xlabel('Longitude')
 ax.set_ylabel('Latitude')
-ax.set_title(ctname_m)
+fig.suptitle(ctname_m)
 c = plt.contourf(test,lat_m,ct_m,cmap='Blues_r',transform=ccrs.Mercator())
 cb = plt.colorbar(c)
 cb.set_label('Meters')
 
 
-# In[93]:
+# In[18]:
 
 ax.get_extent()
 
 
-# In[99]:
+# In[19]:
 
 test2 = lon_c
 test2[test2 < 0] = test2[test2 < 0] + 360
 
 
-# In[88]:
+# In[26]:
 
 winlon = np.logical_or(test2 > 164, test2 < 190)
 winlat = np.logical_or(lat_c > -3, lat_c < 18)
 
-
-
+fig = plt.figure()
+fig.suptitle(refc_name)
 ax = plt.axes()
-c = plt.contourf(ref_c.T)
+c = plt.contourf(ref_c[17500:19500][:].T)
 ax.invert_yaxis()
+ax.set_ylabel('Range Bin')
+ax.set_xlabel('Orbit Bin (Arbitrary)')
+cb = plt.colorbar()
+cb.set_label(refc_units)
 
