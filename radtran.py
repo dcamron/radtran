@@ -74,7 +74,7 @@ vsc = hc.vstart()
 vsc.vdatainfo()
 
 
-# In[6]:
+# In[81]:
 
 latc = vsc.attach('Latitude')
 latc.setfields('Latitude')
@@ -144,7 +144,7 @@ hc.close()
 
 # First, we want to pull out every cloud-top height data point with a lat, lon pair corresponding to our cloudsat data.
 
-# In[17]:
+# In[27]:
 
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
@@ -162,6 +162,7 @@ fig.suptitle(ctname_m)
 c = plt.contourf(test,lat_m,ct_m,cmap='Blues_r',transform=ccrs.Mercator())
 cb = plt.colorbar(c)
 cb.set_label('Meters')
+fig.savefig('figures/modis_cloud-top-height.png')
 
 
 # In[18]:
@@ -169,16 +170,7 @@ cb.set_label('Meters')
 ax.get_extent()
 
 
-# In[19]:
-
-test2 = lon_c
-test2[test2 < 0] = test2[test2 < 0] + 360
-
-
-# In[26]:
-
-winlon = np.logical_or(test2 > 164, test2 < 190)
-winlat = np.logical_or(lat_c > -3, lat_c < 18)
+# In[28]:
 
 fig = plt.figure()
 fig.suptitle(refc_name)
