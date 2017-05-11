@@ -1,0 +1,603 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{radtran}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CloudSat Radar and Modis Cloud Top Height Comparisons for 2015
+El
+Niño}\label{cloudsat-radar-and-modis-cloud-top-height-comparisons-for-2015-el-niuxf1o}
+
+\textbf{Spring 2017\\
+\emph{Drew Camron and Matt Cann}}
+
+    \subsection{Introduction}\label{introduction}
+
+The difference in passive and active measurements can be substantial
+(Mahesh et al. 2004; Weisz et al. 2007). These differences can be
+important when studying sensitive thresholds such as cloud top height.
+Accurate cloud top heights are needed for weather and climate models and
+can have a large impact on the radiative budget.
+
+This study will be concerned with cloud top height measurements during
+the 2015-2016 El Niño in the equatorial pacific. The eastward shift and
+enhanced convection associated with El Niño conditions is thought to
+produce larger cells of convection, which increases the global average
+cloud top height (Xu et al. 2007; Davies and Molloy 2012). Higher
+average cloud top heights emit less outgoing longwave radiation and
+therefore have a warming effect on the planet. El Niño conditions are
+correlated with warmer global average surface temperatures, and accurate
+cloud top height retrievals may help us understand a possible
+connection. Feeding higher accuracy cloud top heights into weather
+models may also produce more accurate forecasts. Comparisons between
+active (MODIS) and passive (CloudSat) measurements will be drawn in this
+study for convection occurring on the equatorial pacific on 25 December
+2015.
+
+The Moderate Resolution Imaging Spectroradiometer (MODIS) instrument on
+Aqua has 36 spectral bands with wavelengths ranging from 0.4 to 14.4 µm.
+MODIS is an active measuring system with a ±55° scanning window
+producing swaths of 2330 km and most products at 1- or 5-km spatial
+resolution (King et al. 1992). For this study, we used IR bands 31 and
+33-36 with bandwidths ranging from 10.8 to 14.4 µm, which combine to
+create the level 2 cloud top height dataset. The dataset has 5-km
+spatial resolution.
+
+CloudSat is a 94-GHz nadir-looking cloud radar that tracks 176 seconds
+behind Aqua. CloudSat CPR measure backscattered energy from clouds and
+precipitation in a 1.5-km across track and 2.5-km along track footprint
+and \textasciitilde{}240-m, 125 bin vertical bin resolution for a total
+window of 30 km (Marchand et al. 2008). For this study, we used the
+level 2 GEOPROF product which provides significant radar reflectivity as
+opposed to noise and clutter.
+
+    \subsection{Code, Analysis, and
+Figures}\label{code-analysis-and-figures}
+
+    \subsubsection{Important Reading}\label{important-reading}
+
+\href{http://fhs.github.io/python-hdf4/}{python-hdf4 (aka pyhdf) module
+docs}\\
+\href{http://hdfeos.org/zoo/LAADS/MOD08_D3_Cloud_Fraction_Liquid.py}{sample
+modis import}\\
+\href{http://hdfeos.org/zoo/OTHER/2010128055614_21420_CS_2B-GEOPROF_GRANULE_P_R04_E03.hdf.py}{sample
+cloudsat import}
+
+    \subsubsection{Importing and cleaning
+data}\label{importing-and-cleaning-data}
+
+\textbf{Note}: some of the output used to investigate the HDF files has
+been squashed to save page space, but the code is still valid.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{pyhdf}\PY{n+nn}{.}\PY{n+nn}{SD} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pyhdf}\PY{n+nn}{.}\PY{n+nn}{VS} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pyhdf}\PY{n+nn}{.}\PY{n+nn}{V} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{pyhdf}\PY{n+nn}{.}\PY{n+nn}{HDF} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{in\PYZus{}modis} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/aqua\PYZhy{}modis\PYZus{}ctpres\PYZus{}20151225\PYZus{}0140.hdf}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{in\PYZus{}cs} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/cloudsat\PYZus{}radar\PYZus{}20151225.hdf}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{m} \PY{o}{=} \PY{n}{SD}\PY{p}{(}\PY{n}{in\PYZus{}modis}\PY{p}{,} \PY{n}{SDC}\PY{o}{.}\PY{n}{READ}\PY{p}{)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{SD}\PY{p}{(}\PY{n}{in\PYZus{}cs}\PY{p}{,} \PY{n}{SDC}\PY{o}{.}\PY{n}{READ}\PY{p}{)}
+        
+        \PY{n}{hm} \PY{o}{=} \PY{n}{HDF}\PY{p}{(}\PY{n}{in\PYZus{}modis}\PY{p}{)}
+        \PY{n}{hc} \PY{o}{=} \PY{n}{HDF}\PY{p}{(}\PY{n}{in\PYZus{}cs}\PY{p}{)}
+\end{Verbatim}
+
+    These data files are structured differently. The MODIS data stores all
+of its coordinates and data in datasets, to be viewed and extracted
+below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}m.datasets() \PYZsh{}long list of data}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{dslat\PYZus{}m} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dslon\PYZus{}m} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dsct\PYZus{}m} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cloud\PYZus{}Top\PYZus{}Height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{lat\PYZus{}m} \PY{o}{=} \PY{n}{dslat\PYZus{}m}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}    \PY{c+c1}{\PYZsh{} MODIS swath latitude}
+        \PY{n}{lon\PYZus{}m} \PY{o}{=} \PY{n}{dslon\PYZus{}m}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}    \PY{c+c1}{\PYZsh{} MODIS swath longitude}
+        \PY{c+c1}{\PYZsh{} converting to [0,360] deg E longitude}
+        \PY{n}{lon\PYZus{}m}\PY{p}{[}\PY{n}{lon\PYZus{}m} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{lon\PYZus{}m}\PY{p}{[}\PY{n}{lon\PYZus{}m} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{360}
+        \PY{n}{ct\PYZus{}mi} \PY{o}{=} \PY{n}{dsct\PYZus{}m}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}
+        \PY{n}{at} \PY{o}{=} \PY{n}{dsct\PYZus{}m}\PY{o}{.}\PY{n}{attributes}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}at}
+\end{Verbatim}
+
+    Here we can pull in some of the provided attributes. The data are not
+scaled or offset, but we will make sure to NaN invalid data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{\PYZus{}FillValue} \PY{o}{=} \PY{n}{at}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}FillValue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{vra} \PY{o}{=} \PY{n}{at}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{ctname\PYZus{}m} \PY{o}{=} \PY{n}{at}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{long\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{ctunits\PYZus{}m} \PY{o}{=} \PY{n}{at}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{units}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{invalid} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{ct\PYZus{}mi} \PY{o}{\PYZlt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ct\PYZus{}mi} \PY{o}{\PYZgt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ct\PYZus{}mi} \PY{o}{==} \PY{n}{\PYZus{}FillValue}\PY{p}{)}
+        \PY{n}{ct\PYZus{}m} \PY{o}{=} \PY{n}{ct\PYZus{}mi}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}    \PY{c+c1}{\PYZsh{} cleaned MODIS cloud\PYZhy{}top height data}
+        \PY{n}{ct\PYZus{}m}\PY{p}{[}\PY{n}{invalid}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+\end{Verbatim}
+
+    Now, the cloudsat data have coordinating information hidden in the HDF
+vdata, which we will investigate and extract below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{vsc} \PY{o}{=} \PY{n}{hc}\PY{o}{.}\PY{n}{vstart}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}vsc.vdatainfo()}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{latc} \PY{o}{=} \PY{n}{vsc}\PY{o}{.}\PY{n}{attach}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{latc}\PY{o}{.}\PY{n}{setfields}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{n}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{latc}\PY{o}{.}\PY{n}{inquire}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lat\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{latc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} cloudsat path latitudes}
+        \PY{n}{latc}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{lonc} \PY{o}{=} \PY{n}{vsc}\PY{o}{.}\PY{n}{attach}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{lonc}\PY{o}{.}\PY{n}{setfields}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{n}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{lonc}\PY{o}{.}\PY{n}{inquire}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lon\PYZus{}c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{lonc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}    \PY{c+c1}{\PYZsh{} cloudsat path longitudes}
+        \PY{n}{lonc}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} converting to [0,360] deg E longitude}
+        \PY{n}{lon\PYZus{}c}\PY{p}{[}\PY{n}{lon\PYZus{}c} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{lon\PYZus{}c}\PY{p}{[}\PY{n}{lon\PYZus{}c} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{360}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}c.datasets()}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{dshgt\PYZus{}c} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{dsref\PYZus{}c} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radar\PYZus{}Reflectivity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{hgt\PYZus{}ci} \PY{o}{=} \PY{n}{dshgt\PYZus{}c}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ref\PYZus{}ci} \PY{o}{=} \PY{n}{dsref\PYZus{}c}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    As the data descriptors are a headache and a half to by-hand pull out of
+the HDF vgroups, they were inspected manually with HDFVIEW and imported
+here. Height were unscaled/unoffset, Reflectivity were scaled by 100.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{hgtc\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Height of range bin in Reflectivity/Cloud Mask above reference surface (\PYZti{}mean sea level).}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{hgtc\PYZus{}units} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{vra} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5000}\PY{p}{,} \PY{l+m+mi}{30000}\PY{p}{]}
+         \PY{n}{\PYZus{}FillValue} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999}
+         
+         \PY{n}{invalid} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{hgt\PYZus{}ci} \PY{o}{\PYZlt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{hgt\PYZus{}ci} \PY{o}{\PYZgt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{hgt\PYZus{}ci} \PY{o}{==} \PY{n}{\PYZus{}FillValue}\PY{p}{)}
+         \PY{n}{hgt\PYZus{}c} \PY{o}{=} \PY{n}{hgt\PYZus{}ci}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}      \PY{c+c1}{\PYZsh{} cleaned height data}
+         \PY{n}{hgt\PYZus{}c}\PY{p}{[}\PY{n}{invalid}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{refc\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radar Reflectivity Factor}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{refc\PYZus{}units} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dBZe}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{refc\PYZus{}scale} \PY{o}{=} \PY{l+m+mi}{100}
+         
+         \PY{n}{vra} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4000}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{]}
+         \PY{n}{\PYZus{}FillValue} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8192}
+         
+         \PY{n}{invalid} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}or}\PY{p}{(}\PY{n}{ref\PYZus{}ci} \PY{o}{\PYZlt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{ref\PYZus{}ci} \PY{o}{\PYZgt{}} \PY{n}{vra}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ref\PYZus{}ci} \PY{o}{==} \PY{n}{\PYZus{}FillValue}\PY{p}{)}
+         \PY{n}{ref\PYZus{}c\PYZus{}pre} \PY{o}{=} \PY{n}{ref\PYZus{}ci}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{ref\PYZus{}c\PYZus{}pre}\PY{p}{[}\PY{n}{invalid}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+         \PY{n}{ref\PYZus{}c} \PY{o}{=} \PY{n}{ref\PYZus{}c\PYZus{}pre} \PY{o}{/} \PY{n}{refc\PYZus{}scale}    \PY{c+c1}{\PYZsh{} cleaned and scaled cloudsat reflectivity data}
+\end{Verbatim}
+
+    Finally, we'll close all of our open files and datasets.
+m.end()
+hm.close()
+
+vsc.end()
+c.end()
+hc.close()
+    \subsubsection{Now we can do some data
+analysis!}\label{now-we-can-do-some-data-analysis}
+
+    \paragraph{Subsetting and co-locating the
+data}\label{subsetting-and-co-locating-the-data}
+
+So, now we need to narrow down the cloudsat granule to our MODIS domain.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{nlat\PYZus{}c\PYZus{}mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}\PY{n}{lat\PYZus{}c} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{lat\PYZus{}m}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lat\PYZus{}c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lat\PYZus{}m}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nlon\PYZus{}c\PYZus{}mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}\PY{n}{lon\PYZus{}c} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{lon\PYZus{}m}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lon\PYZus{}c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{lon\PYZus{}m}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nref\PYZus{}c\PYZus{}mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}
+             \PY{n}{nlat\PYZus{}c\PYZus{}mask}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{k+kc}{True}\PY{p}{,} \PY{n}{nlon\PYZus{}c\PYZus{}mask}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{nlat\PYZus{}c} \PY{o}{=} \PY{n}{lat\PYZus{}c}\PY{p}{[}\PY{n}{nref\PYZus{}c\PYZus{}mask}\PY{p}{]}
+         \PY{n}{nlon\PYZus{}c} \PY{o}{=} \PY{n}{lon\PYZus{}c}\PY{p}{[}\PY{n}{nref\PYZus{}c\PYZus{}mask}\PY{p}{]}
+         \PY{n}{nref\PYZus{}c} \PY{o}{=} \PY{n}{ref\PYZus{}c}\PY{p}{[}\PY{n}{nref\PYZus{}c\PYZus{}mask}\PY{p}{]}
+\end{Verbatim}
+
+    Now that we have Cloudsat narrowed down to at least the rough MODIS
+domain, we will attempt to select all of the nearest points to the
+Cloudsat orbit track. First, we re-created the initial MODIS plot to
+include the subset Cloudsat track overlayed, to make sure our domains
+were lining up correctly.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{cartopy}\PY{n+nn}{.}\PY{n+nn}{crs} \PY{k}{as} \PY{n+nn}{ccrs}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{n}{ccrs}\PY{o}{.}\PY{n}{Mercator}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{163}\PY{p}{,} \PY{l+m+mi}{192}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{ctname\PYZus{}m}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{lon\PYZus{}m}\PY{p}{,} \PY{n}{lat\PYZus{}m}\PY{p}{,} \PY{n}{ct\PYZus{}m}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{ccrs}\PY{o}{.}\PY{n}{Mercator}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cb} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+         \PY{n}{cb}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Meters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{n}{ccrs}\PY{o}{.}\PY{n}{Mercator}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{nlon\PYZus{}c}\PY{p}{,} \PY{n}{nlat\PYZus{}c}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figures/modis\PYZus{}cloud\PYZhy{}top\PYZhy{}height.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{radtran_files/radtran_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    And we can re-create our initial Cloudsat profile to actually line up
+with our MODIS domain.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{refc\PYZus{}name}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{nref\PYZus{}c}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Range Bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbit Bin in MODIS Domain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{cb} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cb}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{n}{refc\PYZus{}units}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figures/cloudsat\PYZus{}radar\PYZhy{}reflectivity.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{radtran_files/radtran_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now we will attempt to loop through Cloudsat and find the
+minimum-distance lat/lon pairs from the MODIS data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nref\PYZus{}c}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-16-de7562e6dff7>", line 2
+        
+        \^{}
+    SyntaxError: unexpected EOF while parsing
+
+
+    \end{Verbatim}
+
+    \subsection{References}\label{references}
+
+Davies, R., and M. Molloy, 2012: Global cloud height fluctuations
+measured by MISR on Terra from 2000 to 2010.~Geophysical Research
+Letters,~39, L03701, doi:10.1029/2011GL050506.
+
+King, M. D., Y. J. Kaufman, W. P. Menzel, and D. Tanre (1992), Remote
+sensing of cloud, aerosol, and water vapor properties from the Moderate
+Resolution Imaging Spectrometer (MODIS), IEEE Trans. Geosci. Remote
+Sens., 30, 2-27.\\
+Mahesh, A.,~M. A. Gray,~S. P. Palm,~W. D. Hart, and~J. D.
+Spinhirne,~2004:~Passive and active detection of clouds: Comparisons
+between MODIS and GLAS observations,~Geophys. Res. Lett.,~31, L04108,
+doi:10.1029/2003GL018859.
+
+Marchand, R., G.G. Mace, T. Ackerman, and G. Stephens, 2008: Hydrometeor
+Detection Using CloudSat -- An Earth-Orbiting 94-GHz Cloud Radar. J.
+Atmos. Oceanic Technol., 25, 519-533.
+
+Weisz, E.,~J. Li,~W. P. Menzel,~A. K. Heidinger,~B. H. Kahn, and~C.-Y.
+Liu,~2007:~Comparison of AIRS, MODIS, CloudSat and CALIPSO cloud top
+height retrievals,~Geophys. Res. Lett.,~34, L17811,
+doi:10.1029/2007GL030676.
+
+Xu, K.-M. et al, 2007: Statistical analyses of satellite cloud object
+data from CERS, part II: Tropical convective cloud objects during the
+1998 El Nino and evidence for supporting the fixed anvil temperature
+hypothesis. J. Climate, 20, 819-842.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
